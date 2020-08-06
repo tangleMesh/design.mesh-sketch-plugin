@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/sketch-hq/SketchAPI/develop/docs/sketch-plugin-manifest-schema.json",
+  "icon": "icon.png",
+  "commands": [
+    {
+      "name": "synchronize document",
+      "identifier": "design.mesh-sketch-plugin.synchronizer-id",
+      "script": "./synchronizer.js",
+      "handlers": {
+        "actions": {
+          "DocumentSaved": "documentSaved"
+        }
+      }
+    },
+    {
+      "name": "open dashboard",
+      "identifier": "design.mesh-sketch-plugin.my-command-id",
+      "script": "./my-command.js"
+    }
+  ],
+  "menu": {
+    "title": "design.mesh-sketch-plugin",
+    "items": [
+      "design.mesh-sketch-plugin.my-command-id",
+      "design.mesh-sketch-plugin.synchronizer-id"
+    ]
+  }
+}

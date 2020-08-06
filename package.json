@@ -1,0 +1,33 @@
+{
+  "name": "design.mesh-sketch-plugin",
+  "description": "A sketch-plugin to synchronize your local workspace with a remote copy for collaboration.",
+  "version": "0.1.0",
+  "engines": {
+    "sketch": ">=49.0"
+  },
+  "skpm": {
+    "name": "design.mesh-sketch-plugin",
+    "manifest": "src/manifest.json",
+    "main": "design.mesh-sketch-plugin.sketchplugin",
+    "assets": [
+      "assets/**/*"
+    ],
+    "sketch-assets-file": "sketch-assets/icons.sketch"
+  },
+  "scripts": {
+    "build": "skpm-build",
+    "watch": "skpm-build --watch",
+    "start": "skpm-build --watch --run",
+    "postinstall": "npm run build && skpm-link"
+  },
+  "devDependencies": {
+    "@skpm/builder": "^0.7.0"
+  },
+  "author": "Jeremias Ehnnle <jeremias@tangle-mesh.com>",
+  "dependencies": {
+    "@skpm/fs": "^0.2.6",
+    "@skpm/path": "^0.1.4",
+    "aws-sdk": "^2.726.0",
+    "fs": "0.0.1-security"
+  }
+}
