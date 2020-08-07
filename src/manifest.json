@@ -3,26 +3,60 @@
   "icon": "icon.png",
   "commands": [
     {
-      "name": "synchronize document",
-      "identifier": "design.mesh-sketch-plugin.synchronizer-id",
+      "name": "🔄 Synchronize this document",
+      "identifier": "design.mesh-sketch-plugin.synchronize-document",
       "script": "./synchronizer.js",
       "handlers": {
+        "run": "documentSaved",
         "actions": {
           "DocumentSaved": "documentSaved"
         }
       }
     },
     {
-      "name": "open dashboard",
-      "identifier": "design.mesh-sketch-plugin.my-command-id",
-      "script": "./my-command.js"
+      "name": "⏯ Enable synchronization for this document",
+      "identifier": "design.mesh-sketch-plugin.enable-synchronnization",
+      "script": "./synchronizer.js",
+      "handler": "enableDocumentSync"
+    },
+    {
+      "name": "⏹ Disable synchronization for this document",
+      "identifier": "design.mesh-sketch-plugin.disable-synchronnization",
+      "script": "./synchronizer.js",
+      "handler": "disableDocumentSync"
+    },
+    {
+      "name": "🔑 remove credentials",
+      "identifier": "design.mesh-sketch-plugin.remove-credentials",
+      "script": "./credentials.js",
+      "handler": "removeCredentials"
+    },
+    {
+      "name": "🔐 add credentials",
+      "identifier": "design.mesh-sketch-plugin.add-credentials",
+      "script": "./credentials.js",
+      "handler": "addCredentials"
     }
   ],
   "menu": {
     "title": "design.mesh-sketch-plugin",
     "items": [
-      "design.mesh-sketch-plugin.my-command-id",
-      "design.mesh-sketch-plugin.synchronizer-id"
+      {
+        "title": "Synchronization",
+        "items": [
+          "design.mesh-sketch-plugin.synchronize-document",
+          "design.mesh-sketch-plugin.enable-synchronnization",
+          "design.mesh-sketch-plugin.disable-synchronnization"
+        ]
+      },
+      "-",
+      {
+        "title": "Authentication",
+        "items": [
+          "design.mesh-sketch-plugin.add-credentials",
+          "design.mesh-sketch-plugin.remove-credentials"
+        ]
+      }
     ]
   }
 }
