@@ -14,6 +14,16 @@
       }
     },
     {
+      "name": "document opened",
+      "identifier": "design.mesh-sketch-plugin.document opened",
+      "script": "./synchronizer.js",
+      "handlers": {
+        "actions": {
+          "OpenDocument": "documentOpened"
+        }
+      }
+    },
+    {
       "name": "⏯ Enable synchronization for this document",
       "identifier": "design.mesh-sketch-plugin.enable-synchronnization",
       "script": "./synchronizer.js",
