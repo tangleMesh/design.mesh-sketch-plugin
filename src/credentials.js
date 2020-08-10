@@ -20,7 +20,6 @@ export function addCredentials () {
                 return;
             }
             setPreferences (credentialsKey, value);
-            userDefaults.synchronize();
             UI.message ("Your credentials have been successfully saved! 🔐");
         }
     );

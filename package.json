@@ -26,8 +26,6 @@
   "author": "Jeremias Ehnnle <jeremias@tangle-mesh.com>",
   "dependencies": {
     "@skpm/fs": "^0.2.6",
-    "@skpm/path": "^0.1.4",
-    "aws-sdk": "^2.726.0",
-    "fs": "0.0.1-security"
+    "@skpm/path": "^0.1.4"
   }
 }

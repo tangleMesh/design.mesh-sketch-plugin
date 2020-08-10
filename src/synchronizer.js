@@ -1,10 +1,11 @@
-import { UI } from 'sketch'
-import upload from "./upload.helper";
+import { UI } from "sketch";
+const Document = require('sketch/dom').Document;
+import { upload, download } from "./file.helper";
 import { checkSynchronization } from "./credentials";
 import { getPreferences, setPreferences } from "./storage.helper";
 
 
-export function downloadLatestVersion () {
+export function downloadLatestVersion (document) {
   // check, if document has been set up to sync
   const documentSync = getPreferences (document.documentIdentifier ());
   if (documentSync != "true") {
@@ -18,16 +19,17 @@ export function downloadLatestVersion () {
 
   // read location of the currently saved document
   const filePath = document.fileURL ().path ();
-  log (filePath);
+  const documentId = document.documentIdentifier ();
 
-  // download new version of the document
-  // TODO: Download the latest version!
-  // upload (filePath)
-  //   .then (response => {
-  //     console.log (response);
-  //     UI.message ("Synchronized with remote! 🙌");
-  //   })
-  //   .catch (() => UI.message ("Error: Could not synchronize! Please check your internet connection. 😳"));
+  // Download the latest version!
+  download (filePath, documentId)
+    .then (response => {
+      // live reload the openend document to show latest changes!
+      Document.open (document.fileURL ());
+      UI.message ("Synchronized with remote! 🙌");
+      
+    })
+    .catch (() => UI.message ("Error: Could not synchronize! Please check your internet connection. 😳"));
 }
 
 export function uploadLatestVersion (document) {
@@ -44,25 +46,25 @@ export function uploadLatestVersion (document) {
 
   // read location of the currently saved document
   const filePath = document.fileURL ().path ();
-  log (filePath);
+  const documentId = document.documentIdentifier ();
 
   // upload new version of the document
-  upload (filePath)
+  upload (filePath, documentId)
     .then (response => {
-      console.log (response);
       UI.message ("Synchronized with remote! 🙌");
     })
-    .catch (() => UI.message ("Error: Could not synchronize! Please check your internet connection. 😳"));
+    .catch ((e) => UI.message ("Error: Could not synchronize! Please check your internet connection. 😳"));
 }
 
 export function documentOpened (context) {
   const document = (context.document || context.actionContext.document);
   downloadLatestVersion (document);
 
-  setInterval (() => {
-    // TODO: initiate interval to poll for remote updates on the file, and download copy, if remote branch has been changed! (replace current local file and refresh ui)
-    // TODO: show message, that you switched branch and upload latest local copy before to the old branch!
-  }, 30000);
+  // TODO:
+  // setInterval (() => {
+  //   // TODO: initiate interval to poll for remote updates on the file, and download copy, if remote branch has been changed! (replace current local file and refresh ui)
+  //   // TODO: show message, that you switched branch and upload latest local copy before to the old branch!
+  // }, 30000);
 }
 
 export function documentSaved (context) {
@@ -76,12 +78,14 @@ export function enableDocumentSync (context) {
     return;
   }
 
+  // Set document-id to by synced
   const document = context.document;
   setPreferences (document.documentIdentifier (), "true");
-  UI.message ("Enabled synchronization for this document! ⏯");
 
   // Upload the actual document
   documentSaved (context);
+
+  UI.message ("Enabled synchronization for this document! ⏯");
 }
 
 export function disableDocumentSync (context) {
