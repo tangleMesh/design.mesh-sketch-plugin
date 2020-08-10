@@ -7,7 +7,7 @@
       "identifier": "design.mesh-sketch-plugin.synchronize-document",
       "script": "./synchronizer.js",
       "handlers": {
-        "run": "documentSaved",
+        "run": "synchronizeDocument",
         "actions": {
           "DocumentSaved": "documentSaved"
         }

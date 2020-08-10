@@ -41,3 +41,21 @@ export function checkSynchronization () {
     }
     return true;
 }
+
+export function generateSecurityHeaders () {
+    // FORMAT of Api-Key: <uuid of user without `-`>-<api-secret of user>
+    
+    // Read users secret (api-key)
+    const apiKey = getCredentials ();
+    if (apiKey === null) {
+        return null;
+    }
+
+    const userId = apiKey.substr (0, 32);
+    const key = apiKey.substr (33);
+
+    return {
+        userId,
+        key,
+    };
+}

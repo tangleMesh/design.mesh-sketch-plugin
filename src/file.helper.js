@@ -1,9 +1,8 @@
 import fs from "@skpm/fs";
-import { getCredentials } from "./credentials";
+import { generateSecurityHeaders } from "./credentials";
 
 
 export function upload (filePath, identifier) {
-    console.log ("UPLOAD");
     return new Promise ((resolve, reject) => {
         // Read file into buffer
         const fileBuffer = fs.readFileSync (filePath, {
@@ -32,7 +31,6 @@ export function upload (filePath, identifier) {
 };
 
 export function download (filePath, identifier) {
-    console.log ("DOWNLOAD");
     return new Promise ((resolve, reject) => {
         // download file
         const { userId, key } = generateSecurityHeaders ();
@@ -59,29 +57,3 @@ export function download (filePath, identifier) {
             });
     });
 };
-
-
-/*
-*
-*      HELPER FUNCTIONS
-*
-*/
-
-
-function generateSecurityHeaders () {
-    // FORMAT of Api-Key: <uuid of user without `-`>-<api-secret of user>
-    
-    // Read users secret (api-key)
-    const apiKey = getCredentials ();
-    if (apiKey === null) {
-        return null;
-    }
-
-    const userId = apiKey.substr (0, 32);
-    const key = apiKey.substr (33);
-
-    return {
-        userId,
-        key,
-    };
-}
