@@ -11,14 +11,13 @@ export function upload (filePath, identifier) {
         const fileBase64 = fileBuffer.toString ("base64");
         
         // upload file to server
-        const { userId, key } = generateSecurityHeaders ();
+        const { key } = generateSecurityHeaders ();
         fetch ("https://localhost:3000/upload", {
             method: "POST",
             body: fileBase64,
             headers: {
                 "Content-Type": "application/base64",
                 "X-DOCUMENT": identifier,
-                "X-USER": userId,
                 "X-API-KEY": key,
             }
         })
@@ -33,13 +32,12 @@ export function upload (filePath, identifier) {
 export function download (filePath, identifier) {
     return new Promise ((resolve, reject) => {
         // download file
-        const { userId, key } = generateSecurityHeaders ();
+        const { key } = generateSecurityHeaders ();
         fetch ("https://localhost:3000/download", {
             method: "GET",
             headers: {
                 "Content-Type": "application/base64",
                 "X-DOCUMENT": identifier,
-                "X-USER": userId,
                 "X-API-KEY": key,
             }
         })

@@ -71,13 +71,12 @@ export function synchronizeDocument (context) {
   const document = (context.document || context.actionContext.document);
   // show message, that you switched branch and upload latest local copy before to the old branch!
   console.log ("HASH", document.hash ());
-  const { userId, key } = generateSecurityHeaders ();
+  const { key } = generateSecurityHeaders ();
   fetch ("https://localhost:3000/status", {
     method: "GET",
     headers: {
         "Content-Type": "application/json",
         "X-DOCUMENT": document.documentIdentifier (),
-        "X-USER": userId,
         "X-API-KEY": key,
     }
   })
