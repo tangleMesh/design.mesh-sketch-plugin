@@ -12,7 +12,7 @@ export function upload (filePath, identifier) {
         
         // upload file to server
         const { key } = generateSecurityHeaders ();
-        fetch ("https://localhost:3000/upload", {
+        fetch ("https://localhost:3010/sketch/upload", {
             method: "POST",
             body: fileBase64,
             headers: {
@@ -33,7 +33,7 @@ export function download (filePath, identifier) {
     return new Promise ((resolve, reject) => {
         // download file
         const { key } = generateSecurityHeaders ();
-        fetch ("https://localhost:3000/download", {
+        fetch ("https://localhost:3010/sketch/download", {
             method: "GET",
             headers: {
                 "Content-Type": "application/base64",
