@@ -29,7 +29,10 @@ export function downloadLatestVersion (document, message) {
       Document.open (document.fileURL ());
       UI.message (message);
     })
-    .catch (() => UI.message ("Error: Could not synchronize! Please check your internet connection. 😳"));
+    .catch ((e) => {
+      console.log ("ERROR", e);
+      UI.message ("Error: Could not synchronize! Please check your internet connection. 😳")
+    });
 }
 
 export function uploadLatestVersion (document, message) {
@@ -51,9 +54,13 @@ export function uploadLatestVersion (document, message) {
   // upload new version of the document
   upload (filePath, documentId)
     .then (response => {
+      console.log ("SUCCESS", response);
       UI.message (message);
     })
-    .catch ((e) => UI.message ("Error: Could not synchronize! Please check your internet connection. 😳"));
+    .catch ((e) => {
+      console.log ("ERROR", e);
+      UI.message ("Error: Could not synchronize! Please check your internet connection. 😳")
+    });
 }
 
 export function documentOpened (context) {
